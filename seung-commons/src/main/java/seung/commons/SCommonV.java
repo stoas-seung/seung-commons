@@ -5,8 +5,9 @@ import com.google.gson.GsonBuilder;
 
 public class SCommonV {
 
-	public final static String _S_FILE      = "FILE";
-	public final static String _S_DIRECTORY = "DIR";
+	public final static String _S_FILE               = "F";
+	public final static String _S_DIRECTORY          = "D";
+	public final static String _S_FILE_AND_DIRECTORY = "FD";
 	
 	public final static String _S_DATA_HTML = "HTML";
 	public final static String _S_DATA_JSON = "JSON";

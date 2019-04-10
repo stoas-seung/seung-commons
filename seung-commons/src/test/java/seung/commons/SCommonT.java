@@ -1,5 +1,6 @@
 package seung.commons;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -78,12 +79,12 @@ public class SCommonT {
 					, SCommonV._S_CHA_EUCKR
 					, SCommonU.encodeURIComponent("https://www.google.com?p1=박종승&p2=+`~()!", SCommonV._S_CHA_EUCKR)
 					));
-			System.out.println(String.format(
-					"[%20s:%8s] - %s"
-					, "readXls"
-					, ""
-					, SCommonU.toJson(SExcelU.readXls("docs/public_data_1.xlsx"), true)
-					));
+//			System.out.println(String.format(
+//					"[%20s:%8s] - %s"
+//					, "readXls"
+//					, ""
+//					, SCommonU.toJson(SExcelU.readXls("docs/public_data_1.xlsx"), true)
+//					));
 //			System.out.println(String.format(
 //					"[%20s:%8s] - %s"
 //					, "getNetworks"
@@ -96,6 +97,24 @@ public class SCommonT {
 //					, ""
 //					, SCommonU.getSystemProperties().toJson(true)
 //					));
+			System.out.println(String.format(
+					"[%20s:%8s] - %s"
+					, "getDirPath"
+					, ""
+					, SFileU.getDirectoryPath("docs/public_data_1.xlsx")
+					));
+			System.out.println(String.format(
+					"[%20s:%8s] - %s"
+					, "getFileInfo"
+					, ""
+					, SFileU.getFileInfo("docs/public_data_1.xlsx").toJson(true)
+					));
+			System.out.println(String.format(
+					"[%20s:%8s] - %s"
+					, "getFileListInfo"
+					, ""
+					, SCommonU.toJson(SFileU.getFileListInfo(new File("").getAbsolutePath()), true)
+					));
 			
 		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			e.printStackTrace();
