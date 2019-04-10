@@ -1,5 +1,7 @@
 package seung.commons;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
@@ -8,7 +10,7 @@ import org.junit.Test;
 public class SCommonT {
 
 	@Test
-	public void test() {
+	public void test() throws FileNotFoundException, IOException {
 		try {
 			System.out.println(String.format(
 					"[%20s:%8s] - %s"
@@ -78,16 +80,22 @@ public class SCommonT {
 					));
 			System.out.println(String.format(
 					"[%20s:%8s] - %s"
-					, "getNetworks"
+					, "readXls"
 					, ""
-					, SCommonU.getNetworks().toJson(true)
+					, SCommonU.toJson(SExcelU.readXls("docs/public_data_1.xlsx"), true)
 					));
-			System.out.println(String.format(
-					"[%20s:%8s] - %s"
-					, "getSystemProperties"
-					, ""
-					, SCommonU.getSystemProperties().toJson(true)
-					));
+//			System.out.println(String.format(
+//					"[%20s:%8s] - %s"
+//					, "getNetworks"
+//					, ""
+//					, SCommonU.getNetworks().toJson(true)
+//					));
+//			System.out.println(String.format(
+//					"[%20s:%8s] - %s"
+//					, "getSystemProperties"
+//					, ""
+//					, SCommonU.getSystemProperties().toJson(true)
+//					));
 			
 		} catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
 			e.printStackTrace();

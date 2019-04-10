@@ -7,7 +7,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
@@ -162,7 +161,6 @@ public class SCommonU {
 			byte[]                   hardwareAddresses = null;
 			Enumeration<InetAddress> inetAddresses     = null;
 			InetAddress              inetAddress       = null;
-			StringBuffer             ips               = null;
 			StringBuffer             macs              = null;
 			while(networkInterfaces.hasMoreElements()) {
 				
