@@ -29,7 +29,7 @@ dependencies {
 	compile('org.apache.poi:poi-ooxml:3.17')
 	
 	// bouncycastle
-	compile('org.bouncycastle:bcprov-jdk16:1.45')
+	compile('org.bouncycastle:bcprov-jdk15on:1.57')
 	
 }
 

@@ -4,11 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributeView;
@@ -17,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.InflaterOutputStream;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
@@ -48,12 +46,24 @@ public class SFileU {
 		return byteArray;
 	}
 	
+	public static String readFileToBase64String(File file) throws IOException {
+		return Base64.encodeBase64String(FileUtils.readFileToByteArray(file));
+	}
+	
+	public static String readFileToHexString(File file, boolean toLowerCase) throws IOException {
+		return Hex.encodeHexString(FileUtils.readFileToByteArray(file), toLowerCase);
+	}
+	
 	public static List<String> readLines(File file, String encoding) throws IOException {
 		return FileUtils.readLines(file, encoding);
 	}
 	
 	public static String readFileToString(File file, String encoding) throws IOException {
 		return FileUtils.readFileToString(file, encoding);
+	}
+	
+	public static byte[] readFileToByteArray(File file) throws IOException {
+		return FileUtils.readFileToByteArray(file);
 	}
 	
 	public static void write(File file, byte[] data, boolean append) throws IOException {
@@ -91,10 +101,10 @@ public class SFileU {
 	 * @throws IOException
 	 */
 	public static ArrayList<SMap> getFileListInfo(String pathname) throws IOException {
-		return getFileListInfo(new File(pathname), null, null, 100);
+		return getFileListInfo(new File(pathname), null, null, 1);
 	}
 	public static ArrayList<SMap> getFileListInfo(File file) throws IOException {
-		return getFileListInfo(file, null, null, 100);
+		return getFileListInfo(file, null, null, 1);
 	}
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static ArrayList<SMap> getFileListInfo(

@@ -1,5 +1,9 @@
 package seung.commons;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
@@ -9,13 +13,21 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.Set;
+import java.util.TimeZone;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +36,86 @@ import seung.commons.arguments.SMap;
 
 public class SCommonU {
 
+	public static byte[] decompress(byte[] compressed) throws IOException {
+		
+		ByteArrayInputStream  byteArrayInputStream  = new ByteArrayInputStream(compressed);
+		GZIPInputStream       gzipInputStream       = new GZIPInputStream(byteArrayInputStream);
+		BufferedInputStream   bufferedInputStream   = new BufferedInputStream(gzipInputStream);
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		
+		byte[] b = new byte[1024];
+		int length;
+		while((length = bufferedInputStream.read(b)) != -1) {
+			byteArrayOutputStream.write(b, 0, length);
+		}
+		
+		byteArrayOutputStream.close();
+		bufferedInputStream.close();
+		gzipInputStream.close();
+		byteArrayInputStream.close();
+		
+		return byteArrayOutputStream.toByteArray();
+	}
+	public static byte[] compress(byte[] src) throws IOException {
+		
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		GZIPOutputStream      gzipOutputStream      = new GZIPOutputStream(byteArrayOutputStream);
+		BufferedOutputStream  bufferedOutputStream  = new BufferedOutputStream(gzipOutputStream);
+		bufferedOutputStream.write(src);
+		
+		bufferedOutputStream.close();
+		gzipOutputStream.close();
+		byteArrayOutputStream.close();
+		
+		return byteArrayOutputStream.toByteArray();
+	}
+	
+	public static String[] stringToBinaryStringArray(String data, String charsetName) throws UnsupportedEncodingException {
+		int[]    decimalArray      = stringToDecimalArray(data, charsetName);
+		String[] binaryStringArray = new String[decimalArray.length];
+		for(int i = 0; i < binaryStringArray.length; i++) {
+			binaryStringArray[i] = Integer.toBinaryString(decimalArray[i]);
+		}
+		return binaryStringArray;
+	}
+	public static int[] stringToDecimalArray(String data, String charsetName) throws UnsupportedEncodingException {
+		String hexString    = stringToHexString(data, charsetName);
+		int[]  decimalArray = new int[hexString.length() / 2];
+		for(int i = 0; i < decimalArray.length; i++) {
+			decimalArray[i] = Integer.parseInt(hexString.substring(i * 2, i * 2 + 2), 16);
+		}
+		return decimalArray;
+	}
+	
+	public static String base64StringToString(String base64String, String charsetName) throws UnsupportedEncodingException {
+		return new String(decodeBase64(base64String), charsetName);
+	}
+	public static byte[] decodeBase64(String base64String) {
+		return Base64.decodeBase64(base64String);
+	}
+	public static String stringToBase64String(String data, String charsetName) throws UnsupportedEncodingException {
+		return encodeBase64String(data.getBytes(charsetName));
+	}
+	public static String encodeBase64String(byte[] binaryData) {
+		return Base64.encodeBase64String(binaryData);
+	}
+	
+	public static String hexStringToString(String data, String charsetName) throws DecoderException, UnsupportedEncodingException {
+		return new String(decodeHex(data), charsetName);
+	}
+	public static byte[] decodeHex(String data) throws DecoderException {
+		return Hex.decodeHex(data);
+	}
+	public static String stringToHexString(String data, String charsetName) throws UnsupportedEncodingException {
+		return stringToHexString(data, charsetName, true);
+	}
+	public static String stringToHexString(String data, String charsetName, boolean toLowerCase) throws UnsupportedEncodingException {
+		return encodeHexString(data.getBytes(charsetName), toLowerCase);
+	}
+	public static String encodeHexString(byte[] data, boolean toLowerCase) {
+		return Hex.encodeHexString(data, toLowerCase);
+	}
+	
 	/**
 	 * @desc repeat string
 	 * @param str - source
@@ -45,17 +137,55 @@ public class SCommonU {
 		return UUID.randomUUID().toString();
 	}
 	
-	/**
-	 * @desc date to string
-	 * @param pattern yyyy-MM-dd HH:mm:sss
-	 * @return datetime string or integer
-	 */
-	public static String getDateString(String pattern) {
-		SimpleDateFormat sdf = new SimpleDateFormat(pattern.length() > 0 ? pattern : "yyyy-MM-dd HH:mm:sssss");
-		return sdf.format(new Date());
+	public static Date stringToDate(String source) throws ParseException {
+		return stringToDate(source, "yyyyMMdd");
+	}
+	public static Date stringToDate(String source, String pattern) throws ParseException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		return simpleDateFormat.parse(source);
+	}
+	public static String dateDiff(String unit, Date from, Date to) {
+		long diff = 0l;
+		switch(unit) {
+			case SCommonV._S_TIME_MILLISECONDS:
+				diff = to.getTime() - from.getTime();
+				break;
+			case SCommonV._S_TIME_SECONEDS:
+				diff = TimeUnit.SECONDS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				break;
+			case SCommonV._S_TIME_MINUTES:
+				diff = TimeUnit.MINUTES.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				break;
+			case SCommonV._S_TIME_HOURS:
+				diff = TimeUnit.HOURS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				break;
+			case SCommonV._S_TIME_DAYS:
+				diff = TimeUnit.DAYS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				break;
+			default:
+				break;
+		}
+		return Long.toString(diff);
 	}
 	public static int getDateInteger(String pattern) {
 		return Integer.parseInt(getDateString(pattern).replaceAll("[^0-9]", ""));
+	}
+	public static String getDateString(String pattern) {
+		return getDateString(pattern, SCommonV._S_TIMEZONE_KST);
+	}
+	public static String getDateString(String pattern, String timeZone) {
+		return getDateString(new Date(), pattern, timeZone);
+	}
+	public static String getDateString(Date date, String pattern, String timeZone) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern != null && pattern.length() > 0 ? pattern : "yyyy-MM-dd HH:mm:sssss");
+		simpleDateFormat.setTimeZone(TimeZone.getTimeZone(timeZone));
+		return simpleDateFormat.format(date);
+	}
+	public static Set<String> getAvailableZoneIDs() {
+		return ZoneId.getAvailableZoneIds();
+	}
+	public static String[] getAvailableTimeZoneIDs() {
+		return TimeZone.getAvailableIDs();
 	}
 	
 	/**
