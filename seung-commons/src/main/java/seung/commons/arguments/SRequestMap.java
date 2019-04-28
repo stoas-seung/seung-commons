@@ -12,21 +12,21 @@ public class SRequestMap {
 		network.put(key, value);
 	}
 	public SMap getNetwork() {
-		return network;
+		return network == null ? new SMap() : network;
 	}
 	public void putSession(String key, Object value) {
 		if(session == null) session = new SMap();
 		session.put(key, value);
 	}
 	public SMap getSession() {
-		return session;
+		return session == null ? new SMap() : session;
 	}
 	public void putHeader(String key, Object value) {
 		if(header == null) header = new SMap();
 		header.put(key, value);
 	}
 	public SMap getHeader() {
-		return header;
+		return header == null ? new SMap() : header;
 	}
 	public void putQuery(String key, Object value) {
 		if(query == null) query = new SMap();
@@ -42,6 +42,6 @@ public class SRequestMap {
 		query.objectToSMap(o);
 	}
 	public SMap getQuery() {
-		return query;
+		return query == null ? new SMap() : query;
 	}
 }

@@ -72,8 +72,8 @@ public class SCertificateU {
 			System.out.println(Hex.toHexString(x509Certificate.getSignature()));
 			System.out.println(x509Certificate.getSubjectDN());
 			System.out.println(x509Certificate.getSubjectX500Principal());
-//			System.out.println(Hex.toHexString(x509Certificate.getEncoded()));
-//			System.out.println(Hex.toHexString(x509Certificate.getTBSCertificate()));
+			System.out.println(Hex.toHexString(x509Certificate.getEncoded()));
+			System.out.println(Hex.toHexString(x509Certificate.getTBSCertificate()));
 			ASN1ObjectIdentifier asn1ObjectIdentifier;
 			for(String criticalExtensionOIDs : x509Certificate.getCriticalExtensionOIDs()) {
 				for(Field field : Extension.class.getFields()) {

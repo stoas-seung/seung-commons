@@ -21,49 +21,49 @@ public class SCommonT {
 	@Test
 	public void test() throws FileNotFoundException, IOException, NoSuchAlgorithmException, DecoderException, ParseException, CertificateException {
 		
-		SCertificateU.getSignCertInfo(SFileU.readFileToByteArray(new File("docs/signCert2.der")));
+//		SCertificateU.getSignCertInfo(SFileU.readFileToByteArray(new File("ref/signCert2.der")));
 		
 //		System.out.println(String.format(
 //				"[%16s:%32s] - %s"
 //				, "SCertificateU"
 //				, "readSignCertDerByFile"
-//				, SCommonV._S_GSON.toJson(SCertificateU.readSignCertDerByFile(new File("docs/signCert.der")))
+//				, SCommonV._S_GSON.toJson(SCertificateU.readSignCertDerByFile(new File("ref/signCert.der")))
 //				));
-//		String src = SFileU.readFileToString(new File("docs/forCompress"), SCommonV._S_CHA_UTF8);
-//		System.out.println(String.format(
-//				"[%20s] (%8d) - %s"
-//				, "before compress"
-//				, src.getBytes(SCommonV._S_CHA_UTF8).length
-//				, src.substring(0, 100)
-//				));
-//		byte[] compressed = SCommonU.compress(src.getBytes(SCommonV._S_CHA_UTF8));
-//		System.out.println(String.format(
-//				"[%20s] (%8d) - %s"
-//				, "after compress"
-//				, compressed.length
-//				, new String(compressed).substring(0, 100)
-//				));
-//		String hex = Hex.encodeHexString(compressed, true);
-//		System.out.println(String.format(
-//				"[%20s] (%8d) - %s"
-//				, "compressed to hex"
-//				, hex.length()
-//				, hex.substring(0, 100)
-//				));
-//		byte[] decodeHex = Hex.decodeHex(hex);
-//		System.out.println(String.format(
-//				"[%20s] (%8d) - %s"
-//				, "decode hex"
-//				, decodeHex.length
-//				, new String(decodeHex).substring(0, 100)
-//				));
-//		byte[] decompressed = SCommonU.decompress(decodeHex);
-//		System.out.println(String.format(
-//				"[%20s] (%8d) - %s"
-//				, "decompress"
-//				, decompressed.length
-//				, new String(decompressed, SCommonV._S_CHA_UTF8).substring(0, 100)
-//				));
+		String src = SFileU.readFileToString(new File("ref/forCompress"), SCommonV._S_CHA_UTF8);
+		System.out.println(String.format(
+				"[%20s] (%8d) - %s"
+				, "before compress"
+				, src.getBytes(SCommonV._S_CHA_UTF8).length
+				, src.substring(0, 100)
+				));
+		byte[] compressed = SCommonU.compress(src.getBytes(SCommonV._S_CHA_UTF8));
+		System.out.println(String.format(
+				"[%20s] (%8d) - %s"
+				, "after compress"
+				, compressed.length
+				, new String(compressed).substring(0, 100)
+				));
+		String hex = Hex.encodeHexString(compressed, true);
+		System.out.println(String.format(
+				"[%20s] (%8d) - %s"
+				, "compressed to hex"
+				, hex.length()
+				, hex.substring(0, 100)
+				));
+		byte[] decodeHex = Hex.decodeHex(hex);
+		System.out.println(String.format(
+				"[%20s] (%8d) - %s"
+				, "decode hex"
+				, decodeHex.length
+				, new String(decodeHex).substring(0, 100)
+				));
+		byte[] decompressed = SCommonU.decompress(decodeHex);
+		System.out.println(String.format(
+				"[%20s] (%8d) - %s"
+				, "decompress"
+				, decompressed.length
+				, new String(decompressed, SCommonV._S_CHA_UTF8).substring(0, 100)
+				));
 //		System.out.println(String.format(
 //				"[%16s:%32s] - %s"
 //				, "SCommonU"
@@ -214,13 +214,13 @@ public class SCommonT {
 //				"[%20s:%8s] - %s"
 //				, "getFileInfo"
 //				, ""
-//				, SFileU.getFileInfo("docs/public_data_1.xlsx").toJson(true)
+//				, SFileU.getFileInfo("ref/public_data_1.xlsx").toJson(true)
 //				));
 //		System.out.println(String.format(
 //				"[%20s:%8s] - %s"
 //				, "getDirPath"
 //				, ""
-//				, SFileU.getDirectoryPath("docs/public_data_1.xlsx")
+//				, SFileU.getDirectoryPath("ref/public_data_1.xlsx")
 //				));
 //		System.out.println(String.format(
 //				"[%20s:%8s] - %s"
@@ -238,7 +238,7 @@ public class SCommonT {
 //				"[%20s:%8s] - %s"
 //				, "readXls"
 //				, ""
-//				, SCommonU.toJson(SExcelU.readXls("docs/public_data_1.xlsx"), true)
+//				, SCommonU.toJson(SExcelU.readXls("ref/public_data_1.xlsx"), true)
 //				));
 //		System.out.println(String.format(
 //				"[%20s:%8s] - %s"
