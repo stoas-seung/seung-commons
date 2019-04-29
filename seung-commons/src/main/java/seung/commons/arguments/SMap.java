@@ -175,10 +175,10 @@ public class SMap extends HashMap {
 		return object;
 	}
 	
-	public String toJson() {
-		return toJson(false);
+	public String toJsonString() {
+		return toJsonString(false);
 	}
-	public String toJson(boolean isPretty) {
+	public String toJsonString(boolean isPretty) {
 		if(isPretty) {
 			return SCommonV._S_GSON_PRETTY.toJson(this);
 		} else {
