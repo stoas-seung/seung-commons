@@ -46,9 +46,9 @@ public class SCommonU {
 		int lastIndexOf1 = path.lastIndexOf("/");
 		int lastIndexOf2 = path.lastIndexOf(File.separator);
 		if(lastIndexOf1 > 0 && lastIndexOf1 > lastIndexOf2) {
-			parentPath = path.substring(0, path.lastIndexOf(lastIndexOf1));
+			parentPath = path.substring(0, lastIndexOf1);
 		} else if(lastIndexOf2 > 0 && lastIndexOf2 > lastIndexOf1) {
-			parentPath = path.substring(0, path.lastIndexOf(lastIndexOf2));
+			parentPath = path.substring(0, lastIndexOf2);
 		} else {
 			parentPath = path;
 		}
