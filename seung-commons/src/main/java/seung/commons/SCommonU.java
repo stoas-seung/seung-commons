@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
@@ -38,6 +39,22 @@ import seung.commons.arguments.SMap;
 
 public class SCommonU {
 
+	public static String getParentPath(String path) {
+		
+		String parentPath = "";
+		
+		int lastIndexOf1 = path.lastIndexOf("/");
+		int lastIndexOf2 = path.lastIndexOf(File.separator);
+		if(lastIndexOf1 > 0 && lastIndexOf1 > lastIndexOf2) {
+			parentPath = path.substring(0, path.lastIndexOf(lastIndexOf1));
+		} else if(lastIndexOf2 > 0 && lastIndexOf2 > lastIndexOf1) {
+			parentPath = path.substring(0, path.lastIndexOf(lastIndexOf2));
+		} else {
+			parentPath = path;
+		}
+		
+		return parentPath;
+	}
 	public static String getJarPath(Object o) throws URISyntaxException {
 		CodeSource codeSource = o.getClass().getProtectionDomain().getCodeSource();
 		return codeSource.getLocation().toURI().getPath();
