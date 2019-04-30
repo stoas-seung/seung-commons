@@ -55,8 +55,8 @@ public class SCommonU {
 		
 		return parentPath;
 	}
-	public static String getJarPath(Object o) throws URISyntaxException {
-		CodeSource codeSource = o.getClass().getProtectionDomain().getCodeSource();
+	public static String getJarPath(Class c) throws URISyntaxException {
+		CodeSource codeSource = c.getProtectionDomain().getCodeSource();
 		return codeSource.getLocation().toURI().getPath();
 	}
 	
