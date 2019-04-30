@@ -9,8 +9,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.security.CodeSource;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -36,6 +38,11 @@ import seung.commons.arguments.SMap;
 
 public class SCommonU {
 
+	public static String getJarPath(Object o) throws URISyntaxException {
+		CodeSource codeSource = o.getClass().getProtectionDomain().getCodeSource();
+		return codeSource.getLocation().toURI().getPath();
+	}
+	
 	public static byte[] decompress(byte[] compressed) throws IOException {
 		
 		ByteArrayInputStream  byteArrayInputStream  = new ByteArrayInputStream(compressed);
