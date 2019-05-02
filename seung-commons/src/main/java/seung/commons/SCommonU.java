@@ -300,6 +300,9 @@ public class SCommonU {
 	 *     mac
 	 */
 	public static SMap getNetworks() {
+		return getNetworks(false);
+	}
+	public static SMap getNetworks(boolean isLogString) {
 		
 		SMap            res      = new SMap();
 		ArrayList<SMap> networks = new ArrayList<SMap>();
@@ -328,19 +331,19 @@ public class SCommonU {
 				
 				tmp = new SMap();
 				
-				tmp.put(String.format("%-16s", "name")          , networkInterface.getName());
-				tmp.put(String.format("%-16s", "displayName")   , networkInterface.getDisplayName());
-//				tmp.put(String.format("%-16s", "isUp")          , networkInterface.isUp());
-//				tmp.put(String.format("%-16s", "isLoopback")    , networkInterface.isLoopback());
-				tmp.put(String.format("%-16s", "isVirtual")     , networkInterface.isVirtual());
-				tmp.put(String.format("%-16s", "isPointToPoint"), networkInterface.isPointToPoint());
+				tmp.put(isLogString ? String.format("%-16s", "name")           : "name"          , networkInterface.getName());
+				tmp.put(isLogString ? String.format("%-16s", "displayName")    : "displayName"   , networkInterface.getDisplayName());
+//				tmp.put(isLogString ? String.format("%-16s", "isUp")           : "isUp"          , networkInterface.isUp());
+//				tmp.put(isLogString ? String.format("%-16s", "isLoopback")     : "isLoopback"    , networkInterface.isLoopback());
+				tmp.put(isLogString ? String.format("%-16s", "isVirtual")      : "isVirtual"     , networkInterface.isVirtual());
+				tmp.put(isLogString ? String.format("%-16s", "isPointToPoint") : "isPointToPoint", networkInterface.isPointToPoint());
 				
 				inetAddresses = networkInterface.getInetAddresses();
 				while(inetAddresses.hasMoreElements()) {
 					inetAddress = inetAddresses.nextElement();
-					tmp.put(String.format("%-16s", "hostName")   , inetAddress.getHostName());
-					tmp.put(String.format("%-16s", "hostAddress"), inetAddress.getHostAddress());
-					tmp.put(String.format("%-16s", "isReachable"), inetAddress.isReachable(3000));
+					tmp.put(isLogString ? String.format("%-16s", "hostName")    : "hostName"   , inetAddress.getHostName());
+					tmp.put(isLogString ? String.format("%-16s", "hostAddress") : "hostAddress", inetAddress.getHostAddress());
+					tmp.put(isLogString ? String.format("%-16s", "isReachable") : "isReachable", inetAddress.isReachable(3000));
 				}
 				
 				hardwareAddresses = networkInterface.getHardwareAddress();
@@ -349,7 +352,7 @@ public class SCommonU {
 					for(int i = 0; i < hardwareAddresses.length; i++) {
 						macs.append(String.format("%02X%s", hardwareAddresses[i], (i < hardwareAddresses.length - 1) ? "-" : ""));
 					}
-					tmp.put(String.format("%-16s", "mac"), macs.toString());
+					tmp.put(isLogString ? String.format("%-16s", "mac") : "mac", macs.toString());
 				}
 				
 				networks.add(tmp);
@@ -374,8 +377,11 @@ public class SCommonU {
 	 * @desc system properties
 	 * @return key and value
 	 */
-	@SuppressWarnings("unchecked")
 	public static SMap getSystemProperties() {
+		return getSystemProperties(false);
+	}
+	@SuppressWarnings("unchecked")
+	public static SMap getSystemProperties(boolean isLogString) {
 		
 		SMap res = new SMap();
 		
@@ -385,7 +391,7 @@ public class SCommonU {
 		String propertyName = "";
 		while(propertyNames.hasMoreElements()) {
 			propertyName = (String) propertyNames.nextElement();
-			res.put(String.format("%-32s", propertyName), properties.getProperty(propertyName));
+			res.put(isLogString ? String.format("%-32s", propertyName) : propertyName, properties.getProperty(propertyName));
 		}
 		
 		return res;

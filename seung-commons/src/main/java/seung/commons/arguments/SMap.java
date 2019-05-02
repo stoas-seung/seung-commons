@@ -45,6 +45,10 @@ public class SMap extends HashMap {
 		return this;
 	}
 	
+	public Object get(Object key, Object defaultValue) {
+		return get(key) == null ? defaultValue : get(key);
+	}
+	
 	public String getString(String key) {
 		String val = "";
 		if(containsKey(key)) {

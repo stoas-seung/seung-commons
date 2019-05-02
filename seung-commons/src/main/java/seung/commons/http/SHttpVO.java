@@ -14,21 +14,21 @@ public class SHttpVO implements Serializable {
 	private String              requestUrl           = "";
 	private String              requestMethod        = "POST";
 	private int                 connectionTimeout    = 1000 * 3;
-	private ArrayList<String[]> requestHeaders;
-	private ArrayList<String[]> requestParameters;
+	private ArrayList<String[]> requestHeaders       = null;
+	private ArrayList<String[]> requestParameters    = null;
 	private String              requestEncoding      = "UTF-8";
-	private String              queryString;
+	private String              queryString          = "";
 	
 	// response
 	private int                 readTimeout          = 1000 * 3;;
 	private int                 responseCode         = -1;
-	private String              contentType;
+	private String              contentType          = "";
 	private int                 contentLength        = -1;
-	private String              contentDisposition;
+	private String              contentDisposition   = "";
 	private String              responseEncoding     = "UTF-8";
-	private byte[]              response;
+	private byte[]              response             = null;
 	
-	private String              exceptionMessage;
+	private String              exceptionMessage     = "";
 	
 	public String getRequestUrl() {
 		return requestUrl;
