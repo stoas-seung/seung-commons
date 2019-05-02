@@ -7,6 +7,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import org.apache.commons.io.IOUtils;
 
 import seung.commons.http.SHttpVO;
@@ -22,7 +24,11 @@ public class SHttpU {
 		
 		try {
 			
-			httpURLConnection = (HttpURLConnection) new URL(sHttpVO.getRequestUrl()).openConnection();
+			if(sHttpVO.getIsSSL()) {
+				httpURLConnection = (HttpsURLConnection) new URL(sHttpVO.getRequestUrl()).openConnection();
+			} else {
+				httpURLConnection = (HttpURLConnection) new URL(sHttpVO.getRequestUrl()).openConnection();
+			}
 			
 			if(sHttpVO.getRequestHeaders() != null) {
 				for(String[] header : sHttpVO.getRequestHeaders()) {

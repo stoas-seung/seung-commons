@@ -11,6 +11,7 @@ public class SHttpVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// request
+	private boolean             isSSL                = false;
 	private String              requestUrl           = "";
 	private String              requestMethod        = "POST";
 	private int                 connectionTimeout    = 1000 * 3;
@@ -30,6 +31,12 @@ public class SHttpVO implements Serializable {
 	
 	private String              exceptionMessage     = "";
 	
+	public boolean getIsSSL() {
+		return isSSL;
+	}
+	public void setIsSSL(boolean isSSL) {
+		this.isSSL = isSSL;
+	}
 	public String getRequestUrl() {
 		return requestUrl;
 	}
