@@ -22,7 +22,8 @@ public class SHttpU {
 		
 		try {
 			
-			httpURLConnection = (HttpURLConnection) new URL(sHttpVO.getRequestUrl()).openConnection();
+			URL url = new URL(sHttpVO.getRequestUrl());
+			httpURLConnection = (HttpURLConnection) url.openConnection();
 			
 			if(sHttpVO.getRequestHeaders() != null) {
 				for(String[] header : sHttpVO.getRequestHeaders()) {

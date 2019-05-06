@@ -306,7 +306,6 @@ public class SCommonU {
 		
 		SMap            res      = new SMap();
 		ArrayList<SMap> networks = new ArrayList<SMap>();
-		SMap            tmp      = null;
 		res.put("result" , 0);
 		res.put("message", "");
 		
@@ -319,32 +318,42 @@ public class SCommonU {
 			Enumeration<InetAddress> inetAddresses     = null;
 			InetAddress              inetAddress       = null;
 			StringBuffer             macs              = null;
+			
+			SMap                     network           = null;
+			ArrayList<SMap>          addresses         = null;
+			SMap                     address           = null;
+			
 			while(networkInterfaces.hasMoreElements()) {
 				
 				networkInterface = networkInterfaces.nextElement();
-				if(!networkInterface.isUp()) {
-					continue;
-				}
-				if(networkInterface.isLoopback()) {
-					continue;
-				}
+//				if(!networkInterface.isUp()) {
+//					continue;
+//				}
+//				if(networkInterface.isLoopback()) {
+//					continue;
+//				}
 				
-				tmp = new SMap();
+				network = new SMap();
 				
-				tmp.put(isLogString ? String.format("%-16s", "name")           : "name"          , networkInterface.getName());
-				tmp.put(isLogString ? String.format("%-16s", "displayName")    : "displayName"   , networkInterface.getDisplayName());
-//				tmp.put(isLogString ? String.format("%-16s", "isUp")           : "isUp"          , networkInterface.isUp());
-//				tmp.put(isLogString ? String.format("%-16s", "isLoopback")     : "isLoopback"    , networkInterface.isLoopback());
-				tmp.put(isLogString ? String.format("%-16s", "isVirtual")      : "isVirtual"     , networkInterface.isVirtual());
-				tmp.put(isLogString ? String.format("%-16s", "isPointToPoint") : "isPointToPoint", networkInterface.isPointToPoint());
+				network.put(isLogString ? String.format("%-16s", "name")           : "name"          , networkInterface.getName());
+				network.put(isLogString ? String.format("%-16s", "displayName")    : "displayName"   , networkInterface.getDisplayName());
+				network.put(isLogString ? String.format("%-16s", "isUp")           : "isUp"          , networkInterface.isUp());
+				network.put(isLogString ? String.format("%-16s", "isLoopback")     : "isLoopback"    , networkInterface.isLoopback());
+				network.put(isLogString ? String.format("%-16s", "isVirtual")      : "isVirtual"     , networkInterface.isVirtual());
+				network.put(isLogString ? String.format("%-16s", "isPointToPoint") : "isPointToPoint", networkInterface.isPointToPoint());
 				
 				inetAddresses = networkInterface.getInetAddresses();
+				addresses     = new ArrayList<SMap>();
 				while(inetAddresses.hasMoreElements()) {
 					inetAddress = inetAddresses.nextElement();
-					tmp.put(isLogString ? String.format("%-16s", "hostName")    : "hostName"   , inetAddress.getHostName());
-					tmp.put(isLogString ? String.format("%-16s", "hostAddress") : "hostAddress", inetAddress.getHostAddress());
-					tmp.put(isLogString ? String.format("%-16s", "isReachable") : "isReachable", inetAddress.isReachable(3000));
+					address     = new SMap();
+					address.put(isLogString ? String.format("%-16s", "type")        : "type"       , inetAddress.getClass().getName());
+					address.put(isLogString ? String.format("%-16s", "hostName")    : "hostName"   , inetAddress.getHostName());
+					address.put(isLogString ? String.format("%-16s", "hostAddress") : "hostAddress", inetAddress.getHostAddress());
+					address.put(isLogString ? String.format("%-16s", "isReachable") : "isReachable", inetAddress.isReachable(3000));
+					addresses.add(address);
 				}
+				network.put("addresses", addresses);
 				
 				hardwareAddresses = networkInterface.getHardwareAddress();
 				if(hardwareAddresses != null) {
@@ -352,10 +361,10 @@ public class SCommonU {
 					for(int i = 0; i < hardwareAddresses.length; i++) {
 						macs.append(String.format("%02X%s", hardwareAddresses[i], (i < hardwareAddresses.length - 1) ? "-" : ""));
 					}
-					tmp.put(isLogString ? String.format("%-16s", "mac") : "mac", macs.toString());
+					network.put(isLogString ? String.format("%-16s", "mac") : "mac", macs.toString());
 				}
 				
-				networks.add(tmp);
+				networks.add(network);
 			}
 			
 //			res.put("hostName", inetAddress.getHostName());
