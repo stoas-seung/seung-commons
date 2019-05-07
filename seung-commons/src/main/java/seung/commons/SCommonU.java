@@ -361,7 +361,7 @@ public class SCommonU {
 					for(int i = 0; i < hardwareAddresses.length; i++) {
 						macs.append(String.format("%02X%s", hardwareAddresses[i], (i < hardwareAddresses.length - 1) ? "-" : ""));
 					}
-					network.put(isLogString ? String.format("%-16s", "mac") : "mac", macs.toString());
+					network.put(isLogString ? String.format("%-16s", "hostMac") : "hostMac", macs.toString());
 				}
 				
 				networks.add(network);
