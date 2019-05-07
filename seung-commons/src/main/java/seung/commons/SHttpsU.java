@@ -122,7 +122,7 @@ public class SHttpsU {
 		return sHttpVO;
 	}
 	
-	public static SHttpVO requestWithFile(SHttpVO sHttpVO, String fileFieldName, File file) {
+	public static SHttpVO requestWithFile(SHttpVO sHttpVO, String fileFieldName, String fileName, byte[] file) {
 		
 		String             boundary           = "----" + SCommonU.getUUID();
 		String             delim              = "--";
@@ -182,10 +182,10 @@ public class SHttpsU {
 			
 			dataOutputStream = new DataOutputStream(httpsURLConnection.getOutputStream());
 			dataOutputStream.writeBytes(delim + boundary + newLine);
-			dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + fileFieldName + "\"; filename=\"" + file.getName() + "\"" + newLine);
+			dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"" + fileFieldName + "\"; filename=\"" + fileName + "\"" + newLine);
 			dataOutputStream.writeBytes("Content-Type: application/octet-stream" + newLine);
 			dataOutputStream.writeBytes(newLine);
-			dataOutputStream.write(FileUtils.readFileToByteArray(file));
+			dataOutputStream.write(file);
 			dataOutputStream.writeBytes(newLine);
 			for(String[] requestParameters : sHttpVO.getRequestParameters()) {
 				dataOutputStream.writeBytes(delim + boundary + newLine);
