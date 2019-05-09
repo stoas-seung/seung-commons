@@ -196,6 +196,11 @@ public class SHttpsU {
 			dataOutputStream.writeBytes(delim + boundary + delim);
 			dataOutputStream.flush();
 			
+			sHttpVO.setResponseCode(httpsURLConnection.getResponseCode());
+			sHttpVO.setContentType(httpsURLConnection.getContentType());
+			sHttpVO.setContentLength(httpsURLConnection.getContentLength());
+			sHttpVO.setContentDisposition(httpsURLConnection.getHeaderField("Content-Disposition"));
+			
 			inputStreamReader = new InputStreamReader(httpsURLConnection.getInputStream());
 			sHttpVO.setResponse(IOUtils.toByteArray(inputStreamReader, sHttpVO.getResponseEncoding()));
 			
