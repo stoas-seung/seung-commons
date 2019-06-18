@@ -28,6 +28,11 @@ dependencies {
 	compile('org.apache.poi:poi:3.17')
 	compile('org.apache.poi:poi-ooxml:3.17')
 	
+	// http
+	compile('com.squareup.okhttp3:okhttp:3.14.2')
+	compile('com.squareup.okhttp3:okhttp-urlconnection:3.14.2')
+	compile('com.squareup.okhttp3:logging-interceptor:3.14.2')
+	
 	// bouncycastle
 	compile('org.bouncycastle:bcprov-jdk15on:1.57')
 	
