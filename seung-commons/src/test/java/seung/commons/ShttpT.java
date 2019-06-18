@@ -92,8 +92,8 @@ public class ShttpT {
 		sHttpClientVO.addRequestParameter("hid_enc_data"  , "");
 		sHttpClientVO.addRequestParameter("requestTarget" , "searchContentDiv");
 		
-		Interceptor[] interceptors = new Interceptor[1];
-		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new Logger() {
+		// for logging
+		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new okhttp3.logging.HttpLoggingInterceptor.Logger() {
 			@Override
 			public void log(String message) {
 				System.out.println(message);
@@ -101,13 +101,12 @@ public class ShttpT {
 			}
 		});
 		httpLoggingInterceptor.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS);
-		interceptors[0] = httpLoggingInterceptor;
+		sHttpClientVO.addInterceptor(httpLoggingInterceptor);
 		try {
-			sHttpClientVO = SHttpClientU.request(sHttpClientVO, interceptors);
+			sHttpClientVO = SHttpClientU.request(sHttpClientVO);
 //			System.out.println(SCommonV._S_GSON_PRETTY.toJson(sHttpClientVO));
 			System.out.println(new String(sHttpClientVO.getResponseBytes()));
 		} catch (KeyManagementException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block

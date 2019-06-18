@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.List;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -27,7 +28,7 @@ import seung.commons.http.SHttpClientVO;
 
 public class SHttpClientU {
 
-	public static SHttpClientVO request(SHttpClientVO sHttpClientVO, Interceptor[] interceptors) throws NoSuchAlgorithmException, KeyManagementException, IOException {
+	public static SHttpClientVO request(SHttpClientVO sHttpClientVO) throws NoSuchAlgorithmException, KeyManagementException, IOException {
 		
 		OkHttpClient.Builder okHttpClientBuilder = new OkHttpClient.Builder();
 		
@@ -75,7 +76,8 @@ public class SHttpClientU {
 			
 		}
 		
-		if(interceptors != null && interceptors.length > 0) {
+		List<Interceptor>interceptors = sHttpClientVO.getInterceptors();
+		if(interceptors != null && interceptors.size() > 0) {
 			
 			/*
 			 * HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new Logger() { @Override public void log(String message) { } });
