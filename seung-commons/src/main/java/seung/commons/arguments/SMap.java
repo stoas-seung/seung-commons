@@ -10,6 +10,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.google.gson.JsonObject;
+
 import seung.commons.SCommonV;
 
 @SuppressWarnings("rawtypes")
@@ -27,15 +34,25 @@ public class SMap extends HashMap {
 	public SMap(Object o) {
 		objectToSMap(o);
 	}
+	@SuppressWarnings("unchecked")
+	public SMap(String jsonString) throws ParseException {
+		this.putAll(jsonObjectToSMap((JSONObject) new JSONParser().parse(jsonString)));
+	}
+	@SuppressWarnings("unchecked")
+	public SMap(JSONObject jsonObject) {
+		this.putAll(jsonObjectToSMap(jsonObject));
+	}
 	
 	@SuppressWarnings("unchecked")
 	public SMap putMap(Map m) {
 		super.putAll(m);
 		return this;
 	}
-	
 	public SMap putObject(Object o) {
 		return objectToSMap(o);
+	}
+	public SMap putJSONObject(JSONObject jsonObject) {
+		return jsonObjectToSMap(jsonObject);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -124,6 +141,40 @@ public class SMap extends HashMap {
 	@SuppressWarnings("unchecked")
 	public ArrayList<SMap> getArrayListSMap(String key) {
 		return (ArrayList<SMap>) get(key);
+	}
+	
+	public SMap jsonObjectToSMap(JSONObject jsonObject) {
+		
+		SMap sMap = new SMap();
+		Iterator<String> iterator = jsonObject.keySet().iterator();
+		String key   = "";
+		Object value = null;
+		while(iterator.hasNext()) {
+			key   = iterator.next();
+			value = jsonObject.get(key);
+			if(value instanceof JSONArray) {
+				sMap.put(key, jsonArrayToList((JSONArray) value));
+			} else if(value instanceof JsonObject) {
+				sMap.put(key, jsonObjectToSMap((JSONObject) value));
+			} else {
+				sMap.put(key, String.valueOf(value));
+			}
+		}
+		
+		return sMap;
+	}
+	
+	public List<Object> jsonArrayToList(JSONArray jsonArray) {
+		List<Object> list = new ArrayList<Object>();
+		for(Object value : jsonArray.toArray()) {
+			if(value instanceof JSONArray) {
+				value = jsonArrayToList((JSONArray) value);
+			} else if(value instanceof JSONObject) {
+				value = jsonObjectToSMap((JSONObject) value);
+			}
+			list.add(value);
+		}
+		return list;
 	}
 	
 	public SMap objectToSMap(Object o) {

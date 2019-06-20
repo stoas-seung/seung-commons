@@ -19,6 +19,7 @@ dependencies {
 	compile('commons-codec:commons-codec:1.11')
 	
 	// json
+	compile('com.googlecode.json-simple:json-simple:1.1.1')
 	compile('com.google.code.gson:gson:2.8.5')
 	
 	// parser

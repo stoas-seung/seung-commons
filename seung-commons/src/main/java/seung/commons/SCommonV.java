@@ -1,7 +1,5 @@
 package seung.commons;
 
-import java.util.concurrent.TimeUnit;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
