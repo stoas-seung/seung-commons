@@ -17,6 +17,20 @@ public class SCommonV {
 	public final static String _S_CHA_UTF8  = "UTF-8";
 	public final static String _S_CHA_EUCKR = "EUC-KR";
 	
+	public final static String _S_TIMEUNIT_NANOSECONDS  = "NANOSECONDS";
+	public final static String _S_TIMEUNIT_MICROSECONDS = "MICROSECONDS";
+	public final static String _S_TIMEUNIT_MILLISECONDS = "MILLISECONDS";
+	public final static String _S_TIMEUNIT_SECONDS      = "SECONDS";
+	public final static String _S_TIMEUNIT_MINUTES      = "MINUTES";
+	public final static String _S_TIMEUNIT_HOURS        = "HOURS";
+	public final static String _S_TIMEUNIT_DAYS         = "DAYS";
+	
+	public final static String _S_CACHE_NO_CACHE       = "NO_CACHE";
+	public final static String _S_CACHE_MAX_AGE        = "MAX_AGE";
+	public final static String _S_CACHE_MAX_STALE      = "MAX_STALE";
+	public final static String _S_CACHE_MIN_FRESH      = "MIN_FRESH";
+	public final static String _S_CACHE_ONLY_IF_CACHED = "ONLY_IF_CACHED";
+	
 	public final static String _S_METHOD_GET     = "GET";
 	public final static String _S_METHOD_POST    = "POST";
 	public final static String _S_METHOD_OPTIONS = "OPTIONS";

@@ -18,6 +18,9 @@ public class SHttpClientVO {
 	private String                    requestURL            = "";
 	private String                    requestMethod         = SCommonV._S_METHOD_POST;
 	private String                    requestEncoding       = SCommonV._S_CHA_UTF8;
+	private String                    cacheType             = SCommonV._S_CACHE_NO_CACHE;
+	private int                       cacheTime             = -1;
+	private String                    cacheTimeUnit         = SCommonV._S_TIMEUNIT_SECONDS;
 	private ArrayList<String[]>       requestHeaders        = null;
 	private ArrayList<String[]>       requestParameters     = null;
 	private ArrayList<Interceptor>    interceptors          = null;
@@ -68,6 +71,24 @@ public class SHttpClientVO {
 	}
 	public void setRequestEncoding(String requestEncoding) {
 		this.requestEncoding = requestEncoding;
+	}
+	public String getCacheType() {
+		return cacheType;
+	}
+	public void setCacheType(String cacheType) {
+		this.cacheType = cacheType;
+	}
+	public int getCacheTime() {
+		return cacheTime;
+	}
+	public void setCacheTime(int cacheTime) {
+		this.cacheTime = cacheTime;
+	}
+	public String getCacheTimeUnit() {
+		return cacheTimeUnit;
+	}
+	public void setCacheTimeUnit(String cacheTimeUnit) {
+		this.cacheTimeUnit = cacheTimeUnit;
 	}
 	public ArrayList<String[]> getRequestHeaders() {
 		return requestHeaders;

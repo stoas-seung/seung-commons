@@ -8,6 +8,7 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
@@ -15,6 +16,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import okhttp3.CacheControl;
 import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -98,6 +100,57 @@ public class SHttpClientU {
 				requestBuilder.addHeader(header[0], header[1]);
 			}
 		}
+		
+		if(sHttpClientVO.getCacheType() == null || SCommonV._S_CACHE_NO_CACHE.equals(sHttpClientVO.getCacheType())) {
+			requestBuilder.cacheControl(new CacheControl.Builder().noCache().build());
+		} else if(SCommonV._S_CACHE_ONLY_IF_CACHED.equals(sHttpClientVO.getCacheType())) {
+			requestBuilder.cacheControl(new CacheControl.Builder().onlyIfCached().build());
+		} else {
+			
+			TimeUnit timeUnit = null;
+			switch(sHttpClientVO.getCacheTimeUnit()) {
+				case SCommonV._S_TIMEUNIT_NANOSECONDS:
+					timeUnit = TimeUnit.NANOSECONDS;
+					break;
+				case SCommonV._S_TIMEUNIT_MICROSECONDS:
+					timeUnit = TimeUnit.MICROSECONDS;
+					break;
+				case SCommonV._S_TIMEUNIT_MILLISECONDS:
+					timeUnit = TimeUnit.MILLISECONDS;
+					break;
+				case SCommonV._S_TIMEUNIT_SECONDS:
+					timeUnit = TimeUnit.SECONDS;
+					break;
+				case SCommonV._S_TIMEUNIT_MINUTES:
+					timeUnit = TimeUnit.MINUTES;
+					break;
+				case SCommonV._S_TIMEUNIT_HOURS:
+					timeUnit = TimeUnit.HOURS;
+					break;
+				case SCommonV._S_TIMEUNIT_DAYS:
+					timeUnit = TimeUnit.DAYS;
+					break;
+				default:
+					timeUnit = TimeUnit.SECONDS;
+					break;
+			}
+			
+			switch(sHttpClientVO.getCacheType()) {
+				case SCommonV._S_CACHE_MAX_STALE:
+					requestBuilder.cacheControl(new CacheControl.Builder().maxStale(sHttpClientVO.getCacheTime(), timeUnit).build());
+					break;
+				case SCommonV._S_CACHE_MIN_FRESH:
+					requestBuilder.cacheControl(new CacheControl.Builder().minFresh(sHttpClientVO.getCacheTime(), timeUnit).build());
+					break;
+				case SCommonV._S_CACHE_MAX_AGE:
+					requestBuilder.cacheControl(new CacheControl.Builder().maxAge(sHttpClientVO.getCacheTime(), timeUnit).build());
+					break;
+				default:
+					requestBuilder.cacheControl(new CacheControl.Builder().maxAge(0, timeUnit).build());
+					break;
+			}
+			
+		}// end of cache
 		
 		switch(sHttpClientVO.getRequestMethod()) {
 			case SCommonV._S_METHOD_GET:
