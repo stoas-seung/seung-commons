@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Properties;
@@ -161,6 +162,14 @@ public class SCommonU {
 		return UUID.randomUUID().toString();
 	}
 	
+	public static String addDate(String pattern, String dateText, int amount) throws ParseException {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		Date date = simpleDateFormat.parse(dateText);
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DATE, amount);
+		return simpleDateFormat.format(calendar.getTime());
+	}
 	public static Date stringToDate(String source) throws ParseException {
 		return stringToDate(source, "yyyyMMdd");
 	}
