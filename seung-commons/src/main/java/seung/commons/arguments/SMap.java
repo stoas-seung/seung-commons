@@ -109,20 +109,36 @@ public class SMap extends HashMap {
 		return containsKey(key) ? Integer.parseInt(getString(key)) : null;
 	}
 	
+	public int getInt(String key, int defaultVal) {
+		return containsKey(key) && !"".equals(getString(key)) ? Integer.parseInt(getString(key)) : defaultVal;
+	}
+	
 	public double getDouble(String key) {
 		return containsKey(key) ? Double.valueOf(getString(key)) : null;
 	}
 	
-	public BigInteger getBigInteger(String key) {
-		return containsKey(key) ? new BigInteger(getString(key)) : null;
+	public double getDouble(String key, double defaultVal) {
+		return containsKey(key) && !"".equals(getString(key)) ? Double.valueOf(getString(key)) : defaultVal;
 	}
 	
 	public long getLong(String key) {
 		return containsKey(key) ? Long.valueOf(getString(key)) : null;
 	}
 	
+	public long getLong(String key, long defaultVal) {
+		return containsKey(key) && !"".equals(getString(key)) ? Long.valueOf(getString(key)) : defaultVal;
+	}
+	
 	public float getFloat(String key) {
 		return containsKey(key) ? Float.valueOf(getString(key)) : null;
+	}
+	
+	public float getFloat(String key, float defaultVal) {
+		return containsKey(key) && !"".equals(getString(key)) ? Float.valueOf(getString(key)) : defaultVal;
+	}
+	
+	public BigInteger getBigInteger(String key) {
+		return containsKey(key) ? new BigInteger(getString(key)) : null;
 	}
 	
 	public SMap getSMap(String key) {
