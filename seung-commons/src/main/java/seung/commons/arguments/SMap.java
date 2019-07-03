@@ -15,8 +15,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.google.gson.JsonObject;
-
 import seung.commons.SCommonV;
 
 @SuppressWarnings("rawtypes")
@@ -170,7 +168,7 @@ public class SMap extends HashMap {
 			value = jsonObject.get(key);
 			if(value instanceof JSONArray) {
 				sMap.put(key, jsonArrayToList((JSONArray) value));
-			} else if(value instanceof JsonObject) {
+			} else if(value instanceof JSONArray) {
 				sMap.put(key, jsonObjectToSMap((JSONObject) value));
 			} else {
 				sMap.put(key, String.valueOf(value));
