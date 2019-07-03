@@ -168,7 +168,7 @@ public class SMap extends HashMap {
 			value = jsonObject.get(key);
 			if(value instanceof JSONArray) {
 				sMap.put(key, jsonArrayToList((JSONArray) value));
-			} else if(value instanceof JSONArray) {
+			} else if(value instanceof JSONObject) {
 				sMap.put(key, jsonObjectToSMap((JSONObject) value));
 			} else {
 				sMap.put(key, String.valueOf(value));
