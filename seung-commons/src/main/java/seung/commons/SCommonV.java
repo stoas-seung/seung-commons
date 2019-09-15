@@ -1,8 +1,5 @@
 package seung.commons;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 public class SCommonV {
 
 	public final static String _S_FILE               = "F";
@@ -63,8 +60,5 @@ public class SCommonV {
 	public final static String _S_TIME_MINUTES      = "M";
 	public final static String _S_TIME_HOURS        = "H";
 	public final static String _S_TIME_DAYS         = "D";
-	
-	public final static Gson _S_GSON        = new GsonBuilder().disableHtmlEscaping().create();
-	public final static Gson _S_GSON_PRETTY = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
 	
 }

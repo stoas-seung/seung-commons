@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import seung.commons.SCommonU;
 import seung.commons.SCommonV;
 
 public class SHttpVO implements Serializable {
@@ -156,7 +159,13 @@ public class SHttpVO implements Serializable {
 	
 	@Override
 	public String toString() {
-		return SCommonV._S_GSON.toJson(this);
+		String result = "";
+		try {
+			result = SCommonU.toJson(this);
+		} catch (JsonProcessingException e) {
+			result = e.getMessage();
+		}
+		return result;
 	}
 	
 }

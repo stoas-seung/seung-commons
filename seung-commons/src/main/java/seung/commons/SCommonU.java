@@ -36,6 +36,9 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import seung.commons.arguments.SMap;
 
 public class SCommonU {
@@ -281,14 +284,15 @@ public class SCommonU {
 		return URLDecoder.decode(s, enc);
 	}
 	
-	public static String toJson(Object src) {
-		return toJson(src, false);
+	public static String toJson(Object value) throws JsonProcessingException {
+		return toJson(value, false);
 	}
-	public static String toJson(Object src, boolean isPretty) {
+	public static String toJson(Object value, boolean isPretty) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
 		if(isPretty) {
-			return SCommonV._S_GSON_PRETTY.toJson(src);
+			return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(value);
 		} else {
-			return SCommonV._S_GSON.toJson(src);
+			return objectMapper.writeValueAsString(value);
 		}
 	}
 	

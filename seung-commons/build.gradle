@@ -19,8 +19,7 @@ dependencies {
 	compile('commons-codec:commons-codec:1.11')
 	
 	// json
-	compile('com.googlecode.json-simple:json-simple:1.1.1')
-	compile('com.google.code.gson:gson:2.8.5')
+	compile('com.fasterxml.jackson.core:jackson-databind:2.9.9.3')
 	
 	// parser
 	compile('org.jsoup:jsoup:1.9.1')

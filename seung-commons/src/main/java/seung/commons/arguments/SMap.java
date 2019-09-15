@@ -1,5 +1,6 @@
 package seung.commons.arguments;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -10,12 +11,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import seung.commons.SCommonV;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SuppressWarnings("rawtypes")
 public class SMap extends HashMap {
@@ -33,12 +32,8 @@ public class SMap extends HashMap {
 		objectToSMap(o);
 	}
 	@SuppressWarnings("unchecked")
-	public SMap(String jsonString) throws ParseException {
-		this.putAll(jsonObjectToSMap((JSONObject) new JSONParser().parse(jsonString)));
-	}
-	@SuppressWarnings("unchecked")
-	public SMap(JSONObject jsonObject) {
-		this.putAll(jsonObjectToSMap(jsonObject));
+	public SMap(String src) throws JsonParseException, JsonMappingException, IOException {
+		this.putAll(new ObjectMapper().readValue(src, Map.class));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -48,9 +43,6 @@ public class SMap extends HashMap {
 	}
 	public SMap putObject(Object o) {
 		return objectToSMap(o);
-	}
-	public SMap putJSONObject(JSONObject jsonObject) {
-		return jsonObjectToSMap(jsonObject);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -157,40 +149,6 @@ public class SMap extends HashMap {
 		return (ArrayList<SMap>) get(key);
 	}
 	
-	public SMap jsonObjectToSMap(JSONObject jsonObject) {
-		
-		SMap sMap = new SMap();
-		Iterator<String> iterator = jsonObject.keySet().iterator();
-		String key   = "";
-		Object value = null;
-		while(iterator.hasNext()) {
-			key   = iterator.next();
-			value = jsonObject.get(key);
-			if(value instanceof JSONArray) {
-				sMap.put(key, jsonArrayToList((JSONArray) value));
-			} else if(value instanceof JSONObject) {
-				sMap.put(key, jsonObjectToSMap((JSONObject) value));
-			} else {
-				sMap.put(key, String.valueOf(value));
-			}
-		}
-		
-		return sMap;
-	}
-	
-	public List<Object> jsonArrayToList(JSONArray jsonArray) {
-		List<Object> list = new ArrayList<Object>();
-		for(Object value : jsonArray.toArray()) {
-			if(value instanceof JSONArray) {
-				value = jsonArrayToList((JSONArray) value);
-			} else if(value instanceof JSONObject) {
-				value = jsonObjectToSMap((JSONObject) value);
-			}
-			list.add(value);
-		}
-		return list;
-	}
-	
 	public SMap objectToSMap(Object o) {
 		Field[] fields = o.getClass().getDeclaredFields();
 		try {
@@ -244,14 +202,15 @@ public class SMap extends HashMap {
 		return object;
 	}
 	
-	public String toJsonString() {
+	public String toJsonString() throws JsonProcessingException {
 		return toJsonString(false);
 	}
-	public String toJsonString(boolean isPretty) {
+	public String toJsonString(boolean isPretty) throws JsonProcessingException {
+		ObjectMapper objectMapper = new ObjectMapper();
 		if(isPretty) {
-			return SCommonV._S_GSON_PRETTY.toJson(this);
+			return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(this);
 		} else {
-			return SCommonV._S_GSON.toJson(this);
+			return objectMapper.writeValueAsString(this);
 		}
 	}
 	
