@@ -1,5 +1,10 @@
 package seung.commons.arguments;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import seung.commons.SCommonU;
+
 public class SRequestMap {
 
 	private SMap network;
@@ -44,4 +49,17 @@ public class SRequestMap {
 	public SMap getQuery() {
 		return query == null ? new SMap() : query;
 	}
+	
+	public String toString(boolean isPretty) {
+		try {
+			if(isPretty) {
+				return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(this);
+			} else {
+				return new ObjectMapper().writeValueAsString(this);
+			}
+		} catch (JsonProcessingException e) {
+			return e.getMessage();
+		}
+	}
+	
 }
