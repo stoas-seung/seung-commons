@@ -187,16 +187,16 @@ public class SCommonU {
 				diff = to.getTime() - from.getTime();
 				break;
 			case SCommonV._S_TIME_SECONEDS:
-				diff = TimeUnit.SECONDS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				diff = TimeUnit.SECONDS.convert(to.getTime() - from.getTime(), TimeUnit.SECONDS);
 				break;
 			case SCommonV._S_TIME_MINUTES:
-				diff = TimeUnit.MINUTES.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				diff = TimeUnit.MINUTES.convert(to.getTime() - from.getTime(), TimeUnit.MINUTES);
 				break;
 			case SCommonV._S_TIME_HOURS:
-				diff = TimeUnit.HOURS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				diff = TimeUnit.HOURS.convert(to.getTime() - from.getTime(), TimeUnit.HOURS);
 				break;
 			case SCommonV._S_TIME_DAYS:
-				diff = TimeUnit.DAYS.convert(to.getTime() - from.getTime(), TimeUnit.MILLISECONDS);
+				diff = TimeUnit.DAYS.convert(to.getTime() - from.getTime(), TimeUnit.DAYS);
 				break;
 			default:
 				break;
