@@ -79,8 +79,6 @@ public class SHttpsU {
 			httpsURLConnection.setRequestMethod(sHttpVO.getRequestMethod());
 			httpsURLConnection.setConnectTimeout(sHttpVO.getConnectionTimeout());
 			httpsURLConnection.setReadTimeout(sHttpVO.getReadTimeout());
-			httpsURLConnection.setDoInput(true);
-			httpsURLConnection.setDoOutput(true);
 			
 			outputStream = new BufferedOutputStream(httpsURLConnection.getOutputStream());
 			if(isPost) {
@@ -175,8 +173,6 @@ public class SHttpsU {
 			httpsURLConnection.setConnectTimeout(sHttpVO.getConnectionTimeout());
 			httpsURLConnection.setReadTimeout(sHttpVO.getReadTimeout());
 			httpsURLConnection.setUseCaches(false);
-			httpsURLConnection.setDoInput(true);
-			httpsURLConnection.setDoOutput(true);
 			httpsURLConnection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
 			
 			dataOutputStream = new DataOutputStream(httpsURLConnection.getOutputStream());

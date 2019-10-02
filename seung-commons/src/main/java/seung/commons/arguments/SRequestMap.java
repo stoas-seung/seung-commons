@@ -3,8 +3,6 @@ package seung.commons.arguments;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import seung.commons.SCommonU;
-
 public class SRequestMap {
 
 	private SMap network;
