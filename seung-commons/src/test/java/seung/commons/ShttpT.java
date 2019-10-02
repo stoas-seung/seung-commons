@@ -63,58 +63,13 @@ public class ShttpT {
 	
 	public void t() {
 		
-		SHttpClientVO sHttpClientVO = new SHttpClientVO();
-		
-		sHttpClientVO.setSSL(false);
-		sHttpClientVO.setRequestEncoding(SCommonV._S_CHA_UTF8);
-		sHttpClientVO.setRequestURL("https://www.kebhana.com/cms/rate/wpfxd651_01i.do");
-		
-		sHttpClientVO.addRequestHeader("Accept"             , "text/javascript, text/html, application/xml, text/xml, */*");
-		sHttpClientVO.addRequestHeader("Content-type"       , "application/x-www-form-urlencoded; charset=UTF-8");
-		sHttpClientVO.addRequestHeader("Origin"             , "https://www.kebhana.com");
-		sHttpClientVO.addRequestHeader("Referer"            , "https://www.kebhana.com/cms/rate/index.do?contentUrl=/cms/rate/wpfxd651_01i.do");
-		sHttpClientVO.addRequestHeader("User-Agent"         , "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko");
-//		sHttpClientVO.addRequestHeader("X-Prototype-Version", "1.5.1.1");
-		sHttpClientVO.addRequestHeader("X-Requested-With"   , "XMLHttpRequest");
-		
-		sHttpClientVO.addRequestParameter("ajax"          , "true");
-		sHttpClientVO.addRequestParameter("inqType"       , "0");
-		sHttpClientVO.addRequestParameter("tmpInqStrDt_d" , "20190617");
-		sHttpClientVO.addRequestParameter("tmpInqStrDtY_m", "2019");
-		sHttpClientVO.addRequestParameter("tmpInqStrDtM_m", "06");
-		sHttpClientVO.addRequestParameter("tmpInqStrDt_p" , "20190617");
-		sHttpClientVO.addRequestParameter("tmpInqEndDt_p" , "20190617");
-		sHttpClientVO.addRequestParameter("curCd"         , "USD");
-		sHttpClientVO.addRequestParameter("tmpPbldDvCd"   , "1");
-		sHttpClientVO.addRequestParameter("inqDt"         , "20190617");
-		sHttpClientVO.addRequestParameter("inqDvCd"       , "1");
-		sHttpClientVO.addRequestParameter("hid_key_data"  , "");
-		sHttpClientVO.addRequestParameter("hid_enc_data"  , "");
-		sHttpClientVO.addRequestParameter("requestTarget" , "searchContentDiv");
-		
-		// for logging
-		HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor(new okhttp3.logging.HttpLoggingInterceptor.Logger() {
-			@Override
-			public void log(String message) {
-				System.out.println(message);
-				
-			}
-		});
-		httpLoggingInterceptor.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS);
-		sHttpClientVO.addInterceptor(httpLoggingInterceptor);
-		try {
-			sHttpClientVO = SHttpClientU.request(sHttpClientVO);
-//			System.out.println(SCommonV._S_GSON_PRETTY.toJson(sHttpClientVO));
-			System.out.println(new String(sHttpClientVO.getResponseBytes()));
-		} catch (KeyManagementException e) {
-			e.printStackTrace();
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		SHttpVO sHttpVO = new SHttpVO();
+		sHttpVO.setContentType("application/json");
+		sHttpVO.setRequestMethod("GET");
+		sHttpVO.setRequestUrl("https://192.168.0.122:9401/reflect");
+		SHttpsU.request(sHttpVO);
+		System.out.println(sHttpVO);
+		System.out.println(new String(sHttpVO.getResponse()));
 	}
 	
 	public CookieJar b(CookieJar cookieJar) {
