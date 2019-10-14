@@ -77,7 +77,7 @@ public class SHttpClientVO {
 	public long getReadTimeout() {
 		return readTimeout;
 	}
-	public void setRequestEncoding(long readTimeout) {
+	public void setReadTimeout(long readTimeout) {
 		this.readTimeout = readTimeout;
 	}
 	public long getConnectTimeout() {
