@@ -18,6 +18,8 @@ public class SHttpClientVO {
 	private String                    requestURL            = "";
 	private String                    requestMethod         = SCommonV._S_METHOD_POST;
 	private String                    requestEncoding       = SCommonV._S_CHA_UTF8;
+	private long                      readTimeout           = 0l;
+	private long                      connectTimeout        = 0l;
 	private String                    cacheType             = SCommonV._S_CACHE_NO_CACHE;
 	private int                       cacheTime             = -1;
 	private String                    cacheTimeUnit         = SCommonV._S_TIMEUNIT_SECONDS;
@@ -71,6 +73,18 @@ public class SHttpClientVO {
 	}
 	public void setRequestEncoding(String requestEncoding) {
 		this.requestEncoding = requestEncoding;
+	}
+	public long getReadTimeout() {
+		return readTimeout;
+	}
+	public void setRequestEncoding(long readTimeout) {
+		this.readTimeout = readTimeout;
+	}
+	public long getConnectTimeout() {
+		return connectTimeout;
+	}
+	public void setConnectTimeout(long connectTimeout) {
+		this.connectTimeout = connectTimeout;
 	}
 	public String getCacheType() {
 		return cacheType;

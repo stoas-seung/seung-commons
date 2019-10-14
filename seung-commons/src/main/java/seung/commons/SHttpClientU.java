@@ -91,6 +91,13 @@ public class SHttpClientU {
 			
 		}
 		
+		if(sHttpClientVO.getReadTimeout() > 0) {
+			okHttpClientBuilder.readTimeout(sHttpClientVO.getReadTimeout(), TimeUnit.SECONDS);
+		}
+		if(sHttpClientVO.getConnectTimeout() > 0) {
+			okHttpClientBuilder.connectTimeout(sHttpClientVO.getConnectTimeout(), TimeUnit.SECONDS);
+		}
+		
 		OkHttpClient    okHttpClient   = okHttpClientBuilder.build();
 		Request.Builder requestBuilder = new Request.Builder();
 		HttpUrl.Builder httpUrlBuilder = HttpUrl.parse(sHttpClientVO.getRequestURL()).newBuilder();
