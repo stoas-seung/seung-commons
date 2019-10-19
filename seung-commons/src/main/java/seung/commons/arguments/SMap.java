@@ -59,6 +59,9 @@ public class SMap extends HashMap {
 	public String getString(String key) {
 		String val = "";
 		if(containsKey(key)) {
+			if(get(key) == null) {
+				return val;
+			}
 			if(get(key).getClass().isArray()) {
 				if(get(key) != null) {
 					String[] vals = (String[]) get(key);
