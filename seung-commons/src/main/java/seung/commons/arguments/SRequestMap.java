@@ -56,7 +56,7 @@ public class SRequestMap {
 				return new ObjectMapper().writeValueAsString(this);
 			}
 		} catch (JsonProcessingException e) {
-			return e.getMessage();
+			return "" + e;
 		}
 	}
 	

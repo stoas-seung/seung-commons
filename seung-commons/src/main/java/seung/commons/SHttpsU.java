@@ -97,11 +97,11 @@ public class SHttpsU {
 			sHttpVO.setResponse(IOUtils.toByteArray(inputStreamReader, sHttpVO.getResponseEncoding()));
 			
 		} catch (NoSuchAlgorithmException e) {
-			sHttpVO.setExceptionMessage(e.getMessage());
+			sHttpVO.setExceptionMessage("" + e);
 		} catch (KeyManagementException e) {
-			sHttpVO.setExceptionMessage(e.getMessage());
+			sHttpVO.setExceptionMessage("" + e);
 		} catch (IOException e) {
-			sHttpVO.setExceptionMessage(e.getMessage());
+			sHttpVO.setExceptionMessage("" + e);
 		} finally {
 			try {
 				if(inputStreamReader != null) {
@@ -114,7 +114,7 @@ public class SHttpsU {
 					httpsURLConnection.disconnect();
 				}
 			} catch (IOException e) {
-				sHttpVO.setExceptionMessage(e.getMessage());
+				sHttpVO.setExceptionMessage("" + e);
 			}
 		}
 		
@@ -205,11 +205,11 @@ public class SHttpsU {
 			sHttpVO.setResponse(IOUtils.toByteArray(inputStreamReader, sHttpVO.getResponseEncoding()));
 			
 		} catch (NoSuchAlgorithmException e) {
-			sHttpVO.setExceptionMessage(e.getMessage());
+			sHttpVO.setExceptionMessage("" + e);
 		} catch (KeyManagementException e) {
-			sHttpVO.setExceptionMessage(e.getMessage());
+			sHttpVO.setExceptionMessage("" + e);
 		} catch (IOException e) {
-			sHttpVO.setExceptionMessage(e.getMessage());
+			sHttpVO.setExceptionMessage("" + e);
 		} finally {
 			try {
 				if(inputStreamReader != null) {
@@ -222,7 +222,7 @@ public class SHttpsU {
 					httpsURLConnection.disconnect();
 				}
 			} catch (IOException e) {
-				sHttpVO.setExceptionMessage(e.getMessage());
+				sHttpVO.setExceptionMessage("" + e);
 			}
 		}
 		

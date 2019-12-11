@@ -56,7 +56,7 @@ public class SHttpU {
 			sHttpVO.setResponse(IOUtils.toByteArray(inputStreamReader, sHttpVO.getResponseEncoding()));
 			
 		} catch (IOException e) {
-			sHttpVO.setExceptionMessage(e.getMessage());
+			sHttpVO.setExceptionMessage("" + e);
 		} finally {
 			try {
 				if(inputStreamReader != null) {
@@ -69,7 +69,7 @@ public class SHttpU {
 					httpURLConnection.disconnect();
 				}
 			} catch (IOException e) {
-				sHttpVO.setExceptionMessage(e.getMessage());
+				sHttpVO.setExceptionMessage("" + e);
 			}
 		}
 		

@@ -152,7 +152,7 @@ public class SExcelU {
 			
 		} catch (Exception e) {
 			
-			sExcelVO.setExceptionMessage(e.getMessage());
+			sExcelVO.setExceptionMessage("" + e);
 			
 		}
 		

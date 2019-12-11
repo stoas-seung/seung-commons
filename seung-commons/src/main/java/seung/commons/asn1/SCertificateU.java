@@ -124,7 +124,7 @@ public class SCertificateU {
 			sSignCertDerVO.setPath(file.getCanonicalPath());
 		} catch (IOException e) {
 			sSignCertDerVO.setResult(0);
-			sSignCertDerVO.setMessage(e.getMessage());
+			sSignCertDerVO.setMessage("" + e);
 		}
 		
 		return sSignCertDerVO;
@@ -141,7 +141,7 @@ public class SCertificateU {
 				sSignCertDerVO = new SSignCertDerVO();
 			}
 			sSignCertDerVO.setResult(0);
-			sSignCertDerVO.setMessage(e.getMessage());
+			sSignCertDerVO.setMessage("" + e);
 		}
 		
 		return sSignCertDerVO;
@@ -200,9 +200,9 @@ public class SCertificateU {
 			sSignCertDerVO.setResult(1);
 			
 		} catch (CertificateException e) {
-			sSignCertDerVO.setMessage(e.getMessage());
+			sSignCertDerVO.setMessage("" + e);
 		} catch (IOException e) {
-			sSignCertDerVO.setMessage(e.getMessage());
+			sSignCertDerVO.setMessage("" + e);
 		}
 		
 		return sSignCertDerVO;

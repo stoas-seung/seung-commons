@@ -163,7 +163,7 @@ public class SHttpVO implements Serializable {
 		try {
 			result = SCommonU.toJson(this);
 		} catch (JsonProcessingException e) {
-			result = e.getMessage();
+			result = "" + e;
 		}
 		return result;
 	}

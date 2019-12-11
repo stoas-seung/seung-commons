@@ -386,10 +386,10 @@ public class SCommonU {
 			
 		} catch (SocketException e) {
 			e.printStackTrace();
-			res.put("message", e.getMessage());
+			res.put("message", "" + e);
 		} catch (IOException e) {
 			e.printStackTrace();
-			res.put("message", e.getMessage());
+			res.put("message", "" + e);
 		}
 		
 		return res;
